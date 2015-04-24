@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>NewsLamp</title>
+    
+    <!--[if lte IE 8]>
+	<link rel="stylesheet" href="/css/ie.css">
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="/css/style.css">
+    <!--<![endif]-->
+        
+    <!--[if lt IE 9]>
+        <script src="/js/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+        <script src="/js/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    
+  </head>
+  <body>
+    
+    <div id="layout">
+      <!-- Menu toggle -->
+      <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+      </a>
+      
+      <div id="menu">
+        <div class="pure-menu pure-menu-open">
+          <a class="pure-menu-heading" href="#">News</a>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li class="menu-item-divided pure-menu-selected">
+              <a href="#">Services</a>
+            </li>
+            <li><a href="#">Contact</a></li>
+	    
+          </ul>
+        </div>
+      </div>
+      
+      <div id="main">
+        <div class="header">
+	  <div id="om-notifier"></div>
+          <h3>NewsLamp</h3>
+        </div>
+	
+        <div class="content">
+         <div class="pure-g">
+	    <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-1-4">
+	     <img class= "pure-img" src="http://tctechcrunch2011.files.wordpress.com/2014/11/screenshot-2014-11-29-16-05-48.png?w=208&h=156&crop=1"/>
+	     
+	   </div>
+	   <div class="pure-u-1 pure-u-md-2-3 pure-u-lg-3-4">
+	     
+	     <h2>Lazada, Rocket Internet’s Amazon Clone In Southeast Asia, Raises $250M Led By Temasek</h2>
+	     <p>We don’t often see companies announcing funding rounds on the weekend, but that’s not stopping Lazada, the Rocket Internet-backed e-commerce firm in Southeast Asia, from announcing it has pulled in €200 million (around $250 million) in fresh capital. </p>
+	   </div>
+	  
+	 </div>
+	  <div class="pure-g">
+	   <div class="pure-u-1  pure-u-md-2-3 pure-u-lg-3-5">
+	     
+	     <h2>Black Friday Online Sales Up 8.5% Over Last Year, 20% Of Sales Came From iOS</h2>
+	     <p>Online retailers had a good Black Friday, with sales up over 8% from a year ago, and nearly 47% of online traffic coming from mobile devices throughout the day. Mobile played a big role this year in terms of both traffic and sales, and yesterday was especially notable for being the first Thanksgiving Day where mobile traffic to online retailers accounted for more than half of all online traffic.</p>
+	   </div>
+	   <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-2-5">
+	     <img class= "pure-img" src="http://tctechcrunch2011.files.wordpress.com/2014/10/shutterstock_169909892.jpg?w=208&h=156&crop=1"/>
+	     
+	   </div>
+	 </div>
+	   <div class="pure-g">
+	   <div class="pure-u-1 pure-u-md-2-3 pure-u-lg-3-5">
+	     
+	     <h2>Lazada, Rocket Internet’s Amazon Clone In Southeast Asia, Raises $250M Led By Temasek</h2>
+	     <p>We don’t often see companies announcing funding rounds on the weekend, but that’s not stopping Lazada, the Rocket Internet-backed e-commerce firm in Southeast Asia, from announcing it has pulled in €200 million (around $250 million) in fresh capital. </p>
+	   </div>
+	   <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-2-5">
+	     <img class= "pure-img" src="http://tctechcrunch2011.files.wordpress.com/2014/11/screenshot-2014-11-29-16-05-48.png?w=208&h=156&crop=1"/>
+	     
+	   </div>
+	 </div>
+	    <div class="pure-g">
+	   <div class="pure-u-1 pure-u-md-2-3 pure-u-lg-3-5">
+	     
+	     <h2>Lazada, Rocket Internet’s Amazon Clone In Southeast Asia, Raises $250M Led By Temasek</h2>
+	     <p>We don’t often see companies announcing funding rounds on the weekend, but that’s not stopping Lazada, the Rocket Internet-backed e-commerce firm in Southeast Asia, from announcing it has pulled in €200 million (around $250 million) in fresh capital. </p>
+	   </div>
+	   <div class="pure-u-1 pure-u-md-1-3 pure-u-lg-2-5">
+	     <img class= "pure-img" src="http://tctechcrunch2011.files.wordpress.com/2014/11/screenshot-2014-11-29-16-05-48.png?w=208&h=156&crop=1"/>
+	     
+	   </div>
+	 </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/ui.js"></script>
+
+    {% script "/js/main.js"%}
+</body>
+</html>
