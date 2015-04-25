@@ -23,6 +23,12 @@
                                {}
                                (get-store source)))))
 
+
+(defresource product [& [source]]
+  :available-media-types ["application/json"]
+  :allowed-methods [:post :get :delete :put]
+  )
+
 (defn upload-image [request]
   (println request)
   (let [filename (:filename (:image (:params request)))

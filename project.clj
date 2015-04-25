@@ -18,6 +18,7 @@
                  [noir-exception "0.2.4"]
                  [bouncer "0.3.2"]
                  [prone "0.8.1"]
+                 [org.clojure/tools.reader "0.9.1"]
                  [org.clojure/clojurescript "0.0-3211" :scope "provided"]
                  [reagent "0.5.0"]
                  ;;[reagent-forms "0.4.6"]
