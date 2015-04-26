@@ -224,14 +224,19 @@
                                              product-meta-description]
                       meta-information-button))
 
-
+;;Images
 (def product-images (reagent/atom {:id "product-images" :form "product-images-form" :post "/admin/store/image"}))
 
 (defn create-images-form []
-  (images/image-file-component product-images)
-  )
+  (images/image-file-component product-images))
 
 
+;;Recurring Profile
+
+(def product-recurring-profile-name (reagent/atom {:id "product-recurring-profile-name" :type "text" :label "Name"}))
+(def product-recurring-profile-active (reagent/atom {:id "product-recurring-profile-active" :label "Active" :type "checkbox"}))
+(def product-recurring-profile-duration (reagent/atom {:id "product-recurring-profile-duration" :type "text" :label "Duration"}))
+(def product-recurring-profile-factor (reagent/atom {:id "product-recurring-profile-factor" :type "text" :label "Factor"}))
 
 
 (defn select-product-page []
