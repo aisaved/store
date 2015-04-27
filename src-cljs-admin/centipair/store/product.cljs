@@ -233,10 +233,30 @@
 
 ;;Recurring Profile
 
-(def product-recurring-profile-name (reagent/atom {:id "product-recurring-profile-name" :type "text" :label "Name"}))
-(def product-recurring-profile-active (reagent/atom {:id "product-recurring-profile-active" :label "Active" :type "checkbox"}))
+(def product-recurring-profile-name     (reagent/atom {:id "product-recurring-profile-name" :type "text" :label "Name"}))
+(def product-recurring-profile-active   (reagent/atom {:id "product-recurring-profile-active" :label "Active" :type "checkbox"}))
 (def product-recurring-profile-duration (reagent/atom {:id "product-recurring-profile-duration" :type "text" :label "Duration"}))
-(def product-recurring-profile-factor (reagent/atom {:id "product-recurring-profile-factor" :type "text" :label "Factor"}))
+(def product-recurring-profile-factor   (reagent/atom {:id "product-recurring-profile-factor" :type "select" :label "Factor"
+                                                       :options [{:label "Daily" :value "daily"}
+                                                                 {:label "Weekly" :value "weekly"}
+                                                                 {:label "Monthly" :value "monthly"}
+                                                                 {:label "Yearly" :value "yearly"}]}))
+
+
+(defn save-recurring-profile [])
+(def recurring-profile-button (reagent/atom {:id "recurring-profile-button" :on-click save-recurring-profile}))
+(def recurring-profile-form (reagent/atom {:id "recurring-profile-form" :label "Recurring Profile Form" :type "form"}))
+
+(defn create-recurring-profile-form []
+  (input/form-aligned recurring-profile-form
+                      [product-recurring-profile-name
+                       product-recurring-profile-active
+                       product-recurring-profile-duration
+                       product-recurring-profile-factor]
+                      recurring-profile-button))
+
+
+
 
 
 (defn select-product-page []
@@ -245,8 +265,8 @@
      "prices" (create-price-options-form)
      "meta-info" (create-meta-information-form)
      "images" (create-images-form)
-     (create-general-options-form)
-     ))
+     "recurring-profile" (create-recurring-profile-form)
+     (create-general-options-form)))
 
 (defn product-page []
   [:div
