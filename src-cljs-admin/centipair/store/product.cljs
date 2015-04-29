@@ -255,7 +255,39 @@
                        product-recurring-profile-factor]
                       recurring-profile-button))
 
+;;Design
+(def product-template (reagent/atom {:id "product-template" :type "text" :label "Product page template" :value "product.html"}))
 
+(defn save-design [])
+(def product-design-button (reagent/atom {:id "product-design-button" :on-click save-design :label "Save"}))
+(def product-design-form (reagent/atom {:id "product-design-form" :title "Product Design" :type "form"}))
+
+(defn create-product-design-form []
+  (input/form-aligned product-design-form
+                      [product-template]
+                      product-design-button))
+
+
+;;Gift options
+(def product-enable-gift-wrap (reagent/atom {:id "product-enable-gift-wrap" :label "Gift wrapping" :type "checkbox"
+                                             :description "Enable gift wrapping"}))
+(def product-enable-gift-wrap-charge (reagent/atom {:id "product-enable-giftwrap-charge" :label "Enable Charges" :type "checkbox"
+                                                    :description "Enable additional charge for Gift wrapping"}))
+(def product-gift-wrap-charge (reagent/atom {:id "product-gift-wrap-charge" :label "Charge" :type "text" :size 1
+                                             :description "Gift wrapping charge for this product"}))
+
+(defn save-gift-options [])
+(def product-gift-options-button (reagent/atom {:id "product-gift-options-button" :label "Save" :on-click save-gift-options}))
+(def product-gift-options-form (reagent/atom {:id "product-gift-options-form" :title "Gift options"}))
+
+(defn create-product-gift-form []
+  (input/form-aligned product-gift-options-form
+                      [product-enable-gift-wrap
+                       product-enable-gift-wrap-charge
+                       product-gift-wrap-charge]
+                      product-gift-options-button))
+
+;;Inventory management
 
 
 
@@ -266,6 +298,8 @@
      "meta-info" (create-meta-information-form)
      "images" (create-images-form)
      "recurring-profile" (create-recurring-profile-form)
+     "design" (create-product-design-form)
+     "gift-options" (create-product-gift-form)
      (create-general-options-form)))
 
 (defn product-page []
