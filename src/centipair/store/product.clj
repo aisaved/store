@@ -15,7 +15,6 @@
                    :product_active (:product-active params)
                    :product_condition (:product-condition params)
                    :product_featured (:product-featured params)
-                   :product_condition (:product-condition params)
                    :product_manage_stock (:product-manage-stock params)
                    :product_stock (:product-stock params)
                    })))

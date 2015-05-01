@@ -288,6 +288,66 @@
                       product-gift-options-button))
 
 ;;Inventory management
+(defn use-global-inventory-options
+  []
+  (.log js/console "Using global")
+  )
+
+(defn use-custom-inventory-options
+  []
+  (.log js/console "Using custom")
+  )
+
+
+(def product-inventory-options (reagent/atom {:id "product-inventory-options" :label "Inventory options" :type "select-action"
+                                              :options [{:label "Use global store options" :value "global"}
+                                                        {:label "Use custom options for this product" :value "custom"}]
+                                              :actions {:global use-global-inventory-options
+                                                        :custom use-custom-inventory-options}}))
+
+
+(def manage-stock (reagent/atom {:id "manage-stock" :label "Manage Stock" :type "checkbox"
+                         :description "Enable stock management"}))
+(def hold-stock (reagent/atom {:id "hold-stock" :label "Hold Stock (minutes)" :type "text" :size 1 :validator v/integer-required :value-type "integer"}))
+(def low-stock-notification (reagent/atom {:id "low-stock-notification" :type "checkbox"
+                                   :label "Notifications" :description "Enable low stock notification"}))
+(def out-of-stock-notification (reagent/atom {:id "out-of-stock-notification" :type "checkbox" :label "" :description "Enable out of stock notification"}))
+
+(def stock-notification-recipient (reagent/atom {:id "stock-notification-recipient" :type "email" 
+                                         :label "Notification recipient"
+                                         :placeholder "Enter stock notification recipient email"
+                                         :validator v/email-required }))
+
+(def low-stock-threshold (reagent/atom {:id "low-stock-threshold" :type "text" :label "Low stock threshold" :size 1 :value-type "integer"}))
+(def out-of-stock-threshold (reagent/atom {:id "out-of-stock-threshold" :type "text"
+                                   :label "Out of stock threshold" :size 1 :value-type "integer" :validator v/integer-required}))
+
+(def out-of-stock-visibility (reagent/atom {:id "out-of-stock-visibility" :type "checkbox" :label "Out of stock visibility" :description "Hide out of stock items from the catalog"}))
+
+(def stock-display-format (reagent/atom {:id "stock-display-format" :label "Stock display format" :type "select"
+                                 :options [{:label "Always show stock e.g. \"9 in stock\"" :value "always"}
+                                           {:label "Only show stock when low e.g. \"only 2 left in stock\" vs \"In stock\"" :value "only-low"}
+                                           {:label "Never show stock amount" :value "never"}]}))
+
+
+(defn save-inventory []
+  )
+
+(def save-inventory-button (atom {:label "Save" :on-click save-inventory :id "save-inventory-button"}))
+(def inventory-form (atom {:title "Inventory Options" :id "inventory-options" :type "form"}))
+
+(defn create-inventory-form []
+  (input/form-aligned inventory-form [product-inventory-options
+                                      manage-stock
+                                      hold-stock
+                                      low-stock-notification
+                                      out-of-stock-notification
+                                      stock-notification-recipient
+                                      low-stock-threshold
+                                      out-of-stock-threshold
+                                      out-of-stock-visibility
+                                      stock-display-format
+                                      ] save-inventory-button))
 
 
 
@@ -300,6 +360,7 @@
      "recurring-profile" (create-recurring-profile-form)
      "design" (create-product-design-form)
      "gift-options" (create-product-gift-form)
+     "inventory" (create-inventory-form)
      (create-general-options-form)))
 
 (defn product-page []

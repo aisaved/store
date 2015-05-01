@@ -74,15 +74,19 @@ NETWORK:
    :headers {"Content-Type" "text/cache-manifest"
              "Cache-Control" "no-cache, private"}
    :body "CACHE MANIFEST
-/css/bootstrap.min.css
+/admin/css/bootstrap.min.css
+/admin/css/sb-admin.css
+/font-awesome/css/font-awesome.min.css
 /css/custom.css
+/bootstrap-datepicker/css/bootstrap-datepicker.min.css
 /js/jquery-2.1.3.min.js
 /js/bootstrap.min.js
 /js/scripts.js
+/bootstrap-datepicker/js/bootstrap-datepicker.min.js
 /cljs-admin/admin-main.js
-/css/styles.css
-/css/todc-bootstrap.min.css
-#version changed 12
+/font-awesome/fonts/fontawesome-webfont.woff?v=4.2.0
+http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700
+#version changed 19
 # Resources that require the user to be online.
 NETWORK:
 *"}

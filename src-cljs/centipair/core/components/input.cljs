@@ -247,6 +247,25 @@
              (:message @field))]])
 
 
+(defn checkbox-action
+  [field]
+  [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field)) :key (str "container-" (:id @field))}
+   [:label {:for (:id @field) :class "col-sm-2 control-label" :key (str "label-" (:id @field))} (:label @field) ]
+   [:div {:class "col-sm-6" :key (str "divider-" (:id @field))}
+    [:div {:class "checkbox" :key (str "checkbox-" (:id @field))}
+     [:label {:key (str "container-label-" (:id @field))}
+      [:input {:type (:type @field) :id (:id @field)
+               :value (:value @field)
+               :on-change #((:action @field))
+               :checked (:checked @field)
+               :key (str "key-" (:id @field))
+               }] (str " "(:description @field))]]]
+   [:label {:class "col-sm-4 message-label"} (if (nil? (:message @field))
+             ""
+             (:message @field))]])
+
+
+
 (defn plain-checkbox
   [field]
   [:div {:class "checkbox" :key (str "container-" (:id @field))}
@@ -264,7 +283,8 @@
               } (:label option)])
 
 
-(defn select [field]
+(defn select
+  [field]
   [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field))
          :key (str "container-" (:id @field))}
    [:label {:for (:id @field) :class "col-sm-2 control-label"
@@ -274,11 +294,37 @@
               :class "form-control"
               :id (:id @field)
               :on-change #(update-value field (-> % .-target .-value) )
-              :value (:value @field)
-             }
-     (doall (map (partial select-option (:value @field)) (:options @field)))
-     ]
-    ]
+              :value (:value @field)}
+     (doall (map (partial select-option (:value @field)) (:options @field)))]]
+   [:label {:class "col-sm-4 message-label"
+            :key (str "label-message-" (:id @field))
+            } (if (nil? (:message @field))
+             ""
+             (:message @field))]])
+
+
+(defn do-select-action
+  [field value]
+  (do
+    (update-value field value)
+    (((keyword value) (:actions @field)))))
+
+
+(defn select-action
+  "Field should contian a map with action functions
+  E.G: :actions {:option-1 do-action-1 :option-2 do-action-2}"
+  [field]
+  [:div {:class (if (nil? (:class-name @field)) style/bootstrap-input-container-class (:class-name @field))
+         :key (str "container-" (:id @field))}
+   [:label {:for (:id @field) :class "col-sm-2 control-label"
+            :key (str "label-" (:id @field))} (:label @field)]
+   [:div {:class "col-sm-6" :key (str "divider-container-" (:id @field))}
+    [:select {:key (:id @field)
+              :class "form-control"
+              :id (:id @field)
+              :on-change #(do-select-action field (-> % .-target .-value) )
+              :value (:value @field)}
+     (doall (map (partial select-option (:value @field)) (:options @field)))]]
    [:label {:class "col-sm-4 message-label"
             :key (str "label-message-" (:id @field))
             } (if (nil? (:message @field))
@@ -378,6 +424,7 @@
     "password" (text field)
     "checkbox" (checkbox field)
     "select" (select field)
+    "select-action" (select-action field)
     "radio" (radio field)
     "hidden" (hidden field)
     "subheading" (subheading field)
