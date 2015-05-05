@@ -107,7 +107,7 @@
                         [ring/ring-devel "1.3.2"]
                         [pjstadig/humane-test-output "0.7.0"]
                         [leiningen "2.5.1"]
-                        [figwheel "0.2.8"]
+                        [figwheel "0.3.1"]
                         [weasel "0.6.0"]
                         [com.cemerick/piggieback "0.2.1"]]
          :source-paths ["env/dev/clj"]
@@ -128,5 +128,4 @@
          :repl-options {:init-ns centipair.repl}
          :injections [(require 'pjstadig.humane-test-output)
                       (pjstadig.humane-test-output/activate!)]
-         :env {:dev true}}}
-  )
+         :env {:dev true}}})
