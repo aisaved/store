@@ -59,6 +59,7 @@
                (:placeholder @field))
              :value (:value @field)
              :on-change #(update-value field (-> % .-target .-value) )
+             :disabled (if (:disabled @field) "disabled" "")
              }]]
    [:label {:class "col-sm-4 message-label" :key (str "message-" (:id @field))} (if (nil? (:message @field))
              ""
@@ -241,6 +242,7 @@
                :on-change #(update-check field (-> % .-target .-checked) )
                :checked (:checked @field)
                :key (str "key-" (:id @field))
+               :disabled (if (:disabled @field) "disabled" "")
                }] (str " "(:description @field))]]]
    [:label {:class "col-sm-4 message-label"} (if (nil? (:message @field))
              ""
@@ -294,7 +296,8 @@
               :class "form-control"
               :id (:id @field)
               :on-change #(update-value field (-> % .-target .-value) )
-              :value (:value @field)}
+              :value (:value @field)
+              :disabled (if (:disabled @field) "disabled" "")}
      (doall (map (partial select-option (:value @field)) (:options @field)))]]
    [:label {:class "col-sm-4 message-label"
             :key (str "label-message-" (:id @field))
@@ -537,17 +540,56 @@
     "markdown" (update-value field "")))
 
 
-(defn reset-inputs [fields]
+(defn disable-input
+  [field]
+  (swap! field assoc :disabled "disabled"))
+
+
+(defn enable-input
+  [field]
+  (swap! field assoc :disabled false))
+
+
+(defn disable-inputs
+  [fields]
+  (doseq [field fields]
+    (disable-input field)))
+
+
+(defn enable-inputs
+  [fields]
+  (doseq [field fields]
+    (enable-input field)))
+
+
+(defn reset-inputs
+  [fields]
   (doseq [field fields]
     (reset-input field)))
 
-(defn clear-error [field]
+
+(defn clear-error
+  [field]
   (if (= (:type field) "form")
     (swap! field assoc
            :message "")
   (swap! field assoc :message ""
          :class-name style/bootstrap-input-container-class)))
 
-(defn clear-form-errors [fields]
+
+(defn check-value
+  "Gets checkbox state"
+  [field]
+  (if (= "checked" (:checked @field))
+    true
+    false))
+
+(defn text-value
+  "Gets textbox value"
+  [field]
+  (:value @field))
+
+(defn clear-form-errors
+  [fields]
   (doseq [field fields]
     (clear-error field)))

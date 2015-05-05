@@ -452,8 +452,7 @@
   (ajax/get-json (store-source site-id)
                  {}
                  (fn [response]
-                   (map-store-settings response)
-                   )))
+                   (map-store-settings response))))
 
 (defn init-store-settings-channel []
   (go (while true

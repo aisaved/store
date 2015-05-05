@@ -6,6 +6,7 @@
             [centipair.core.ui :as ui]
             [centipair.admin.action :as action]
             [centipair.admin.images :as images]
+            [centipair.store.forms :as store-options]
             [centipair.admin.channels :refer [product-type-channel
                                               site-settings-id
                                               set-active-channel
@@ -151,7 +152,7 @@
 
 
 ;;General options
-(def product-title (reagent/atom {:id "product-title" :label "Product Title" :type "text"}))
+(def product-title (reagent/atom {:id "product-title" :label "Product Title" :type "text" }))
 (def product-sku (reagent/atom {:id "product-sku" :label "Product SKU" :type "text"}))
 (def product-short-description (reagent/atom {:id "product-short-description" :label "Product short description" :type "textarea"}))
 (def product-long-description-guide (reagent/atom {:id "product-long-description-guide" :label "Product long description supports markdown" :type "description"}))
@@ -288,22 +289,9 @@
                       product-gift-options-button))
 
 ;;Inventory management
-(defn use-global-inventory-options
-  []
-  (.log js/console "Using global")
-  )
-
-(defn use-custom-inventory-options
-  []
-  (.log js/console "Using custom")
-  )
 
 
-(def product-inventory-options (reagent/atom {:id "product-inventory-options" :label "Inventory options" :type "select-action"
-                                              :options [{:label "Use global store options" :value "global"}
-                                                        {:label "Use custom options for this product" :value "custom"}]
-                                              :actions {:global use-global-inventory-options
-                                                        :custom use-custom-inventory-options}}))
+
 
 
 (def manage-stock (reagent/atom {:id "manage-stock" :label "Manage Stock" :type "checkbox"
@@ -330,6 +318,56 @@
                                            {:label "Never show stock amount" :value "never"}]}))
 
 
+
+(defn set-global-inventory-options []
+  (do
+    (input/update-check manage-stock (input/check-value store-options/manage-stock))
+    (input/update-value hold-stock (input/text-value store-options/hold-stock))
+    (input/update-check low-stock-notification (input/check-value store-options/low-stock-notification))
+    (input/update-check out-of-stock-notification (input/check-value store-options/out-of-stock-notification))
+    (input/update-value stock-notification-recipient (input/text-value store-options/stock-notification-recipient))
+    (input/update-value low-stock-threshold (input/text-value store-options/low-stock-threshold))
+    (input/update-value out-of-stock-threshold (input/text-value store-options/out-of-stock-threshold))
+    (input/update-check out-of-stock-visibility (input/check-value store-options/out-of-stock-visibility))
+    (input/update-value stock-display-format (input/text-value store-options/stock-display-format))))
+
+(defn use-global-inventory-options
+  []
+  (do 
+    (input/disable-inputs [manage-stock
+                          hold-stock
+                          low-stock-notification
+                          out-of-stock-notification
+                          stock-notification-recipient
+                          low-stock-threshold
+                          out-of-stock-threshold
+                          out-of-stock-visibility
+                          stock-display-format])
+    ;;(set-global-inventory-options) TODO: find something better
+    ))
+
+(defn use-custom-inventory-options
+  []
+  (input/enable-inputs [manage-stock
+                        hold-stock
+                        low-stock-notification
+                        out-of-stock-notification
+                        stock-notification-recipient
+                        low-stock-threshold
+                        out-of-stock-threshold
+                        out-of-stock-visibility
+                        stock-display-format]))
+
+
+
+
+(def product-inventory-options (reagent/atom {:id "product-inventory-options" :label "Inventory options" :type "select-action"
+                                              :options [{:label "Use global store options" :value "global"}
+                                                        {:label "Use custom options for this product" :value "custom"}]
+                                              :actions {:global use-global-inventory-options
+                                                        :custom use-custom-inventory-options}}))
+
+
 (defn save-inventory []
   )
 
@@ -337,6 +375,9 @@
 (def inventory-form (atom {:title "Inventory Options" :id "inventory-options" :type "form"}))
 
 (defn create-inventory-form []
+  (if (= (:value @product-inventory-options) "custom")
+    (use-custom-inventory-options)
+    (use-global-inventory-options))
   (input/form-aligned inventory-form [product-inventory-options
                                       manage-stock
                                       hold-stock
