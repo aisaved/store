@@ -24,6 +24,25 @@
                                (get-store source)))))
 
 
+
+(defresource admin-api-category [&[source]]
+  :available-media-types ["application/json"]
+  :allowed-methods [:post :get :delete :put]
+  :processable? (fn [context] (if (= (:request-method (:request context)) :get)
+                                true
+                                (validate-category (:params (:request context)))))
+  :exists? (fn [context] (if (nil? source) true (category-exists? source)))
+  :handle-unprocessable-entity (fn [context] (:validation-result context))
+  :post! (fn [context] (save-category (:params (:request context))))
+  :handle-created (fn [context] (:created context))
+  :handle-ok (fn [context] (if (nil? source)
+                             (get-all-categories (:params (:request context)))
+                             (if (:subdue context) ;;'resource not' found subdued for greater good
+                               {}
+                               (get-store source)))))
+
+
+
 (defresource product [& [source]]
   :available-media-types ["application/json"]
   :allowed-methods [:post :get :delete :put]
@@ -39,4 +58,6 @@
 (defroutes admin-api-store-routes
   (ANY "/admin/api/store" [] (admin-api-store))
   (ANY "/admin/api/store/:id" [id] (admin-api-store id))
+  (ANY "/admin/api/category" [] (admin-api-category))
+  (ANY "/admin/api/category/:id" [id] (admin-api-category id))
   (POST "/admin/store/image" request (upload-image request)))

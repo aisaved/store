@@ -243,3 +243,16 @@ CREATE TABLE page(
        ON DELETE CASCADE
        );
 CREATE INDEX page_url_index on page (page_url);
+
+
+CREATE TABLE category(
+       category_id serial PRIMARY KEY,
+       site_setting_id integer,
+       category_name VARCHAR (255) NOT NULL,
+       category_parent integer,
+       CONSTRAINT category_site_settings_id_fkey FOREIGN KEY (site_settings_id)
+       REFERENCES site_settings (site_settings_id) MATCH SIMPLE 
+       ON DELETE CASCADE
+       );
+
+CREATE INDEX category_index on category (category_name)

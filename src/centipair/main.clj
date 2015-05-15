@@ -23,5 +23,6 @@
 
 (defn -main [& args]
   "e.g. lein run -dev port 3000"
+  (println args)
   (start-server args)
   (timbre/info "immutant server started on port:" (:port @server)))

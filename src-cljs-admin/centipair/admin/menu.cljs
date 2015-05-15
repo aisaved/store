@@ -30,7 +30,7 @@
                   {:label "Catalogue" :url "/catalogue" :id "catalogue" :active false :icon "table"
                    :children [{:label "Manage Products" :url "/products/0" :id "products" :active false :icon "cubes"}
                               {:label "Product Type" :url "/product-type" :id "product-type" :active false :icon "sliders"}
-                              {:label "Categories" :url "/categpries" :id "categories" :active false :icon "list"}]}
+                              {:label "Categories" :url "/categories" :id "categories" :active false :icon "list"}]}
                   
                   {:label "Pages" :url "/pages/0" :id "pages" :active false :icon "file-text"}
                   {:label "Users" :url "/users/0" :id "users" :active false :icon "users"}
