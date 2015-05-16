@@ -1,6 +1,7 @@
 (ns centipair.store.api
    (:use compojure.core
-         centipair.store.settings)
+         centipair.store.settings
+         centipair.store.category)
    (:require [liberator.core :refer [resource defresource]]
              [centipair.core.contrib.response :as response]
              [clojure.java.io :as io]))
